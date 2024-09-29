@@ -24,8 +24,14 @@ else
 		    window.location.href='". URL_BASE . "/aplicacao/login/formLogin.php';
 		   </script>");
 }
-echo ("<script>
-	   window.location.href='". URL_BASE . "/negocio/usuarios/lista_usuarios.php';
-	   </script>");
+if($usuario->getIdNivel()== 1){//administrador
+	echo ("<script>
+		   window.location.href='". URL_BASE . "/negocio/usuarios/lista_usuarios.php';
+		   </script>");
+}else{
+	echo ("<script>
+		   window.location.href='". URL_BASE . "/index.php';
+		   </script>");
+}
 
 ?>

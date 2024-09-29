@@ -7,7 +7,7 @@ if(!isset($id))
 	$id = isset($_GET["id_usuario"]) ? $_GET["id_usuario"] : null;
 
 if(!isset($nome))
-	$nome 	= isset($_GET["nome"]) ? $_GET["nome"] : null;
+	$nome = isset($_GET["nome"]) ? $_GET["nome"] : null;
 
 if(!isset($email))
 	$email = isset($_GET["email"]) ? $_GET["email"] : null;
@@ -15,11 +15,11 @@ if(!isset($email))
 if(!isset($login))
 	$login 	= isset($_GET["login"]) ? $_GET["login"] : null;
 
-if(!isset($id_nivel_usuario))
-	$id_nivel_usuario = isset($_GET["id_nivel_usuario"]) ? intval($_GET["id_nivel_usuario"]) : 1;
+if(!isset($id_nivel))
+	$id_nivel = isset($_GET["id_nivel"]) ? intval($_GET["id_nivel"]) : 1;
 
 if(!isset($operacao))
-	$operacao 	= isset($_GET["operacao"]) ? $_GET["operacao"] : "inserir";
+	$operacao = isset($_GET["operacao"]) ? $_GET["operacao"] : "inserir";
 
 ?>
 
@@ -94,13 +94,23 @@ if(!isset($operacao))
 								<input type="password" name="senha" class="form-control" value="" required>
 							</div>
 
+							<?php if ($operacao != "inserir") : ?>
+								<div class="mb-3">
+									<label for="nivel" class="form-label">Nivel</label>
+									<select name="nivel" id="nivel" class="form-control">
+										<option value="1" <?php if($id_nivel == 1) echo 'selected'; ?>>Administrador</option>
+										<option value="2" <?php if($id_nivel == 2) echo 'selected'; ?>>Usuário</option>
+									</select>
+								</div>
+							<?php endif; ?>
+
 							<!-- Inputs escondidos -->
 							<input type="hidden" name="id_usuario" value="<?php echo $id ?>">
-							<input type="hidden" name="id_nivel_usuario" value="<?php echo $id_nivel_usuario ?>">
 							<input type="hidden" name="operacao" value="<?php echo $operacao ?>">
 
-							<!-- Botão de Envio -->
-							<input type="submit" value="Enviar" class="btn btn-submit btn-outline-dark w-100">
+							<button type="submit" class="btn btn-submit btn-outline-dark w-100">
+								<?php echo ($operacao == "inserir") ? "Cadastrar" : "Editar Cadastro"; ?>
+							</button>
 						</form>
 					</div>
 				</div>
