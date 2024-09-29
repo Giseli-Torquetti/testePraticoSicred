@@ -10,6 +10,12 @@ function usuarioCRUD (Usuario $usuario, $operacao){
 	if ($operacao == 'I') {
 		$resultado = $usuarioDAO->inserir($usuario);
 	}
+	if ($operacao == 'A') {
+		$resultado = $usuarioDAO->alterar($usuario);
+	}
+	if ($operacao == 'E') {
+		$resultado = $usuarioDAO->excluir($usuario);
+	}
 
 	if($resultado){
 		echo ("<script>
@@ -28,13 +34,26 @@ function usuarioCRUD (Usuario $usuario, $operacao){
 
 }
 
+function localizaUsuario ($id){
+	$usuarioDAO = new UsuarioDAO();
+	$usuario = $usuarioDAO->getUsuario($id);
+	if ($usuario == null) {
+		echo ("<script>
+			window.alert('Registro não encontrado');
+			window.location.href='./fomrLogin.php';
+			</script>");
+	}
+
+	return $usuario;
+}
+
 function insereUsuario (){
 	$usuario = new Usuario;
 	$usuario->setNome($_POST['nome']);
 	$usuario->setEmail($_POST['email']);
 	$usuario->setLogin($_POST['login']);
 	$usuario->setSenha($_POST['senha']);
-	$usuario->setIdNivel(2);
+	$usuario->setIdNivel(1);
 
 	usuarioCRUD ($usuario, 'I');
 }
@@ -51,3 +70,38 @@ if (isset($_GET["operacao"])){
 if ($operacao == 'inserir'){
 	insereUsuario();
 }
+
+if (($operacao == 'editar') || ($operacao == 'excluir')) {
+	$usuario = localizaUsuario($_GET['id']);
+
+}
+
+if ($operacao == 'editar'){
+	$id  = $usuario->getId();
+	$nome  = $usuario->getNome();
+	$email  = $usuario->getEmail();
+	$login = $usuario->getLogin();
+	$id_nivel = $usuario->getIdNivel();
+	$senha = '';
+	$operacao = "alterar";
+	
+
+	$url = "Location: " . URL_BASE . "/aplicacao/usuarios/formCadastro.php?";
+	$url = $url . "id_usuario=$id&nome=$nome&email=$email&login=$login&id_nivel=$id_nivel&operacao=$operacao"; 
+
+	header($url);
+}
+
+if ($operacao == 'excluir'){
+	echo "<pre>";
+	var_dump($usuario); // Debug do objeto
+	echo "</pre>";
+	usuarioCRUD ($usuario, 'E');
+}
+
+
+/*echo ("<script>
+	window.alert('".$erro."');
+	window.location.href='./lista_usuarios.php';
+	</script>");*/
+	?>
