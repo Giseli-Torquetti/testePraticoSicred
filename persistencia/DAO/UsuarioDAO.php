@@ -18,7 +18,7 @@ class UsuarioDAO extends Conexao {
         $sql->bindValue(':nome', $usuario->getNome());
         $sql->bindValue(':email', $usuario->getEmail());
         $sql->bindValue(':login', $usuario->getLogin());
-        $sql->bindValue(':senha', md5($usuario->getSenha()));
+        $sql->bindValue(':senha', hash('sha256', $usuario->getSenha()));
         $sql->bindValue(':id_nivel_usuario', $usuario->getIdNivel());
     
         if ($sql->execute()) {
@@ -29,6 +29,34 @@ class UsuarioDAO extends Conexao {
             echo $sql->errorCode();
             return false;
         }
+    }
+
+    public function login($login, $senha) {
+        $sql = $this->pdo->prepare('select * from usuarios where login_usuario = :login and senha_usuario = :senha');
+        $sql->bindValue(':login', $login);
+        $sql->bindValue(':senha', $senha);
+
+        $sql->execute();
+
+        if ($sql->execute()) {
+            // Query succeeded.
+            while ($dados = $sql->fetch(PDO::FETCH_OBJ)) {          
+                $usuario = new Usuario;
+                $usuario->setId($dados->id_usuario);
+                $usuario->setNome($dados->nome_usuario);
+                $usuario->setEmail($dados->email_usuario);
+                $usuario->setLogin($dados->login_usuario);
+                $usuario->setSenha($dados->senha_usuario);
+                $usuario->setIdNivel($dados->id_nivel_usuario);
+
+                return $usuario;
+            }
+        } else {
+            // Query failed.
+            echo $sql->errorCode();
+            return null;
+        }
+
     }
 
 }
