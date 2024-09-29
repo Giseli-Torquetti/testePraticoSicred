@@ -26,7 +26,7 @@ else
 }
 if($usuario->getIdNivel()== 1){//administrador
 	echo ("<script>
-		   window.location.href='". URL_BASE . "/negocio/usuarios/lista_usuarios.php';
+		   window.location.href='". URL_BASE . "/aplicacao/usuarios/listaUsuarios.php';
 		   </script>");
 }else{
 	echo ("<script>

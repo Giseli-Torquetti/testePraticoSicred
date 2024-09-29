@@ -1,7 +1,7 @@
 <?php	
 
 require('../../base.php'); 
-$url = URL_BASE . "/negocio/usuarios/UsuarioCRUD.php";
+$url = URL_BASE . "../aplicacao/usuarios/listaUsuarios.php";
 
 if(!isset($id))
 	$id = isset($_GET["id_usuario"]) ? $_GET["id_usuario"] : null;
@@ -16,7 +16,7 @@ if(!isset($login))
 	$login 	= isset($_GET["login"]) ? $_GET["login"] : null;
 
 if(!isset($id_nivel))
-	$id_nivel = isset($_GET["id_nivel"]) ? intval($_GET["id_nivel"]) : 1;
+	$id_nivel = isset($_GET["id_nivel"]) ? intval($_GET["id_nivel"]) : 2;
 
 if(!isset($operacao))
 	$operacao = isset($_GET["operacao"]) ? $_GET["operacao"] : "inserir";

@@ -19,17 +19,17 @@ function usuarioCRUD (Usuario $usuario, $operacao){
 
 	if($resultado){
 		echo ("<script>
-			window.alert('Operação realizada com sucesso');
-			
+				window.alert('Operação realizada com sucesso');
+				window.location.href='../../aplicacao/usuarios/listaUsuarios.php';
 			</script>");
 	}
 	else{
 		echo ("<script>
-			window.alert('Ocorreu um erro na operação');
+				window.alert('Ocorreu um erro na operação');
 			</script>");
 	}
 	echo ("<script>
-		window.location.href='./lista_usuarios.php';
+			window.location.href='../../aplicacao/usuarios/listaUsuarios.php';
 		</script>");
 
 }
@@ -93,9 +93,6 @@ if ($operacao == 'editar'){
 }
 
 if ($operacao == 'excluir'){
-	echo "<pre>";
-	var_dump($usuario); // Debug do objeto
-	echo "</pre>";
 	usuarioCRUD ($usuario, 'E');
 }
 
