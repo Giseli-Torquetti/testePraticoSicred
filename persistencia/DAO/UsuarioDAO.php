@@ -14,7 +14,7 @@ class UsuarioDAO extends Conexao {
 
     public function inserir(Usuario $usuario) {
         $sql = $this->pdo->prepare('INSERT INTO usuarios (nome_usuario, email_usuario, login_usuario, senha_usuario, id_nivel_usuario) VALUES (:nome, :email, :login, :senha, :id_nivel_usuario)');
-        
+      
         $sql->bindValue(':nome', $usuario->getNome());
         $sql->bindValue(':email', $usuario->getEmail());
         $sql->bindValue(':login', $usuario->getLogin());
@@ -33,7 +33,7 @@ class UsuarioDAO extends Conexao {
 
     public function alterar(Usuario $usuario) {
         
-        $sql = $this->pdo->prepare('update usuarios set nome_usuario = :nome, email_usuario = :email ,  login_usuario = :login, senha_usuario = :senha where id_usuario = :id_usuario');
+        $sql = $this->pdo->prepare('update usuarios set nome_usuario = :nome, email_usuario = :email ,login_usuario = :login, senha_usuario = :senha, id_nivel_usuario = :id_nivel_usuario where id_usuario = :id_usuario');
         $sql->bindValue(':nome', $usuario->getNome());
         $sql->bindValue(':email', $usuario->getEmail());
         $sql->bindValue(':login', $usuario->getLogin());
