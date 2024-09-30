@@ -3,7 +3,6 @@ require('base.php');
 include( DIR_BASE . '\negocio\login\Sessao.php');
 
 $sessao = new Sessao();
-echo "nivel: ". $sessao->nivel . "<br>";
 if ($sessao->id_usuario == null){
 	//se não estiver autenticado direciona para o login
     header("Location: ./aplicacao/index.html");
