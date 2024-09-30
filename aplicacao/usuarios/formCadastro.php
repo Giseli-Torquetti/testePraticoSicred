@@ -1,7 +1,7 @@
 <?php	
 
 require('../../base.php'); 
-$url = URL_BASE . "../aplicacao/usuarios/listaUsuarios.php";
+$url = URL_BASE . "/negocio/usuarios/UsuarioCRUD.php";
 
 if(!isset($id))
 	$id = isset($_GET["id_usuario"]) ? $_GET["id_usuario"] : null;
@@ -15,8 +15,11 @@ if(!isset($email))
 if(!isset($login))
 	$login 	= isset($_GET["login"]) ? $_GET["login"] : null;
 
-if(!isset($id_nivel))
-	$id_nivel = isset($_GET["id_nivel"]) ? intval($_GET["id_nivel"]) : 2;
+if(!isset($senha))
+	$senha 	= isset($_GET["senha"]) ? $_GET["senha"] : null;
+
+if(!isset($id_nivel_usuario))
+	$id_nivel_usuario = isset($_GET["id_nivel_usuario"]) ? intval($_GET["id_nivel_usuario"]) : 2;
 
 if(!isset($operacao))
 	$operacao = isset($_GET["operacao"]) ? $_GET["operacao"] : "inserir";
@@ -29,7 +32,7 @@ if(!isset($operacao))
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
+	<title>Cadastro</title>
 	<!-- CSS only -->
 	<link rel="stylesheet" href="../style/css.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -41,32 +44,6 @@ if(!isset($operacao))
 </head>
 
 <body>
-	<header class="header navbar navbar-static-top navbar-fixed-top">
-		<div class="container novo-menu-topo">
-			<div class="navbar-header" id="home">
-				<nav class="navbar navbar-expand-lg navbar-light" id="nav-menu-referencia">
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-						aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<nav class="collapse navbar-collapse" id="navbarNavDropdown">
-						<ul class="navbar-nav">
-							<li class="nav-item active">
-								<a class="nav-link" href="../index.html">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="../usuarios/formCadastro.php">Cadastro</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="../login/formLogin.php">Login</a>
-							</li>
-						</ul>
-					</nav>
-				</nav>
-			</div>
-		</div>
-	</header>
-
 	<section>
 		<div class="container vh-100 justify-content-center align-items-center">
 			<div class="row">
@@ -91,27 +68,47 @@ if(!isset($operacao))
 
 							<div class="mb-3">
 								<label for="senha" class="form-label">Senha</label>
-								<input type="password" name="senha" class="form-control" value="" required>
+								<input type="password" name="senha" class="form-control" value="<?php echo $senha ?>" required>
 							</div>
 
 							<?php if ($operacao != "inserir") : ?>
 								<div class="mb-3">
-									<label for="nivel" class="form-label">Nivel</label>
-									<select name="nivel" id="nivel" class="form-control">
-										<option value="1" <?php if($id_nivel == 1) echo 'selected'; ?>>Administrador</option>
-										<option value="2" <?php if($id_nivel == 2) echo 'selected'; ?>>Usuário</option>
+									<label for="id_nivel_usuario" class="form-label">Nivel</label>
+									<select name="id_nivel_usuario" id="id_nivel_usuario" class="form-control">
+										<option value="1" <?php if($id_nivel_usuario == 1) echo 'selected'; ?>>Administrador</option>
+										<option value="2" <?php if($id_nivel_usuario == 2) echo 'selected'; ?>>Usuário</option>
 									</select>
 								</div>
 							<?php endif; ?>
 
 							<!-- Inputs escondidos -->
 							<input type="hidden" name="id_usuario" value="<?php echo $id ?>">
-							<input type="hidden" name="operacao" value="<?php echo $operacao ?>">
+							<input type="" name="operacao" value="<?php echo $operacao ?>">
 
 							<button type="submit" class="btn btn-submit btn-outline-dark w-100">
 								<?php echo ($operacao == "inserir") ? "Cadastrar" : "Editar Cadastro"; ?>
 							</button>
 						</form>
+						<br>
+						<?php if ($operacao == "inserir") : ?>
+							<a href="../login/formLogin.php" title="Login">
+								<button class="btn btn-outline-dark w-100 mb-3">
+								Login
+								</button>
+							</a>
+							<a href="../index.html" title="Voltar ao inicio">
+								<button class="btn btn-outline-dark w-100">
+									Voltar ao inicio
+								</button>
+							</a>
+						<?php endif; ?>
+						<?php if ($operacao != "inserir") : ?>
+							<a href="../usuarios/listaUsuarios.php" title="Voltar ao inicio">
+								<button class="btn btn-outline-dark w-100">
+									Voltar para lista de usuarios
+								</button>
+							</a>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

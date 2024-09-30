@@ -58,6 +58,19 @@ function insereUsuario (){
 	usuarioCRUD ($usuario, 'I');
 }
 
+function alteraUsuario (){
+    $usuario = new Usuario();
+    $usuario->setId($_POST['id_usuario']);
+    $usuario->setNome($_POST['nome']);
+    $usuario->setEmail($_POST['email']);
+    $usuario->setLogin($_POST['login']);
+    $usuario->setSenha($_POST['senha']);
+    $usuario->setIdNivel($_POST['id_nivel_usuario']); 
+	
+    usuarioCRUD($usuario, 'A');
+}
+
+
 
 $operacao = '';
 if (isset($_POST["operacao"])){
@@ -71,6 +84,10 @@ if ($operacao == 'inserir'){
 	insereUsuario();
 }
 
+if ($operacao == 'alterar'){
+    alteraUsuario();
+}
+
 if (($operacao == 'editar') || ($operacao == 'excluir')) {
 	$usuario = localizaUsuario($_GET['id']);
 
@@ -81,13 +98,13 @@ if ($operacao == 'editar'){
 	$nome  = $usuario->getNome();
 	$email  = $usuario->getEmail();
 	$login = $usuario->getLogin();
-	$id_nivel = $usuario->getIdNivel();
-	$senha = '';
+	$id_nivel_usuario = $usuario->getIdNivel();
+	$senha = $usuario->getSenha();
 	$operacao = "alterar";
-	
+	$senhaCriptografada = hash('sha256', $senha);
 
 	$url = "Location: " . URL_BASE . "/aplicacao/usuarios/formCadastro.php?";
-	$url = $url . "id_usuario=$id&nome=$nome&email=$email&login=$login&id_nivel=$id_nivel&operacao=$operacao"; 
+	$url = $url . "id_usuario=$id&nome=$nome&email=$email&login=$login&senha=$senhaCriptografada&id_nivel_usuario=$id_nivel_usuario&operacao=$operacao"; 
 
 	header($url);
 }

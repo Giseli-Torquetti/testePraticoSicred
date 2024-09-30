@@ -39,6 +39,8 @@ class UsuarioDAO extends Conexao {
         $sql->bindValue(':login', $usuario->getLogin());
         $sql->bindValue(':senha', hash('sha256', $usuario->getSenha()));
         $sql->bindValue(':id_usuario', $usuario->getId());
+        $sql->bindValue(':id_nivel_usuario', $usuario->getIdNivel());
+
     
 
         if ($sql->execute()) {
