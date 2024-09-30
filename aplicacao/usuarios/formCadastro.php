@@ -83,7 +83,7 @@ if(!isset($operacao))
 
 							<!-- Inputs escondidos -->
 							<input type="hidden" name="id_usuario" value="<?php echo $id ?>">
-							<input type="" name="operacao" value="<?php echo $operacao ?>">
+							<input type="hidden" name="operacao" value="<?php echo $operacao ?>">
 
 							<button type="submit" class="btn btn-submit btn-outline-dark w-100">
 								<?php echo ($operacao == "inserir") ? "Cadastrar" : "Editar Cadastro"; ?>

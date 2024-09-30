@@ -41,8 +41,6 @@ class UsuarioDAO extends Conexao {
         $sql->bindValue(':id_usuario', $usuario->getId());
         $sql->bindValue(':id_nivel_usuario', $usuario->getIdNivel());
 
-    
-
         if ($sql->execute()) {
             // Query succeeded.
             return true;
