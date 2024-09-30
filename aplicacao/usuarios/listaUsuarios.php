@@ -28,7 +28,7 @@ if ($s->verificarSessao()) {
 </head>
 <body>
     <div class="container">
-        <h2 class="my-4 text-center">Bem-vindo, <?php echo $s->nome_usuario; ?>!</h2>
+        <h2 class="my-4 text-center">Bem-vindo admin, <?php echo $s->nome_usuario; ?>!</h2>
         <p class="lead text-center mb-4">Gerencie seus usuários abaixo:</p>
 
         <?php if (isset($listaUsuarios) && !empty($listaUsuarios)) : ?>

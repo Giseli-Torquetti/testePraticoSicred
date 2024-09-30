@@ -29,7 +29,7 @@ if ($sessao->id_usuario == null){
             <div class="text-center">
                 <a href='./negocio/login/logout.php' class='btn btn-danger mb-4'>Sair</a>
                 <hr>
-                <h1 class='display-1 fw-bold'>Bem-vindo, <?php echo $sessao->nome_usuario; ?>!</h1>
+                <h1 class='display-1 fw-bold'>Bem-vindo user, <?php echo $sessao->nome_usuario; ?>!</h1>
                 <p class='lead'>Melhorias para seu usuário em construção.</p>
                 <hr>
             </div>
